@@ -1,13 +1,37 @@
 import requests
 
 class DeveloperAppClient:
-    """Client to manage developer apps in Apigee Edge."""
+    """
+    Client to manage developer apps in Apigee Edge.
+
+    This client provides methods to create, update, delete, and manage API keys for developer apps.
+
+    Attributes:
+        base_url (str): The base URL for the Apigee API.
+        token (str): The authorization token for accessing the API.
+    """
+
     def __init__(self, base_url, token):
+        """
+        Initializes the DeveloperAppClient with the base URL and authorization token.
+
+        Args:
+            base_url (str): The base URL for the Apigee API.
+            token (str): The authorization token for accessing the API.
+        """
         self.base_url = base_url
         self.token = token
 
     def _handle_request_errors(self, response):
-        """Handles common HTTP request errors."""
+        """
+        Handles common HTTP request errors.
+
+        Args:
+            response (requests.Response): The HTTP response object.
+
+        Raises:
+            Exception: If an HTTP error or other error occurs.
+        """
         try:
             response.raise_for_status()
         except requests.exceptions.HTTPError as http_err:
@@ -19,6 +43,19 @@ class DeveloperAppClient:
             raise Exception(f"Failed to process the request: {err}")
 
     def add_api_key(self, app_id, payload):
+        """
+        Adds an API key to a developer app.
+
+        Args:
+            app_id (str): The ID of the developer app.
+            payload (dict): The payload containing API key details.
+
+        Returns:
+            dict: The response from the API containing the added API key details.
+
+        Raises:
+            Exception: If the API request fails.
+        """
         url = f"{self.base_url}/apps/{app_id}/api-keys"
         headers = {
             "Content-Type": "application/json",
@@ -29,6 +66,19 @@ class DeveloperAppClient:
         return response.json()
 
     def approve_api_key(self, app_id, api_key_id):
+        """
+        Approves an API key for a developer app.
+
+        Args:
+            app_id (str): The ID of the developer app.
+            api_key_id (str): The ID of the API key to approve.
+
+        Returns:
+            dict: The response from the API confirming the approval.
+
+        Raises:
+            Exception: If the API request fails.
+        """
         url = f"{self.base_url}/apps/{app_id}/api-keys/{api_key_id}/approve"
         headers = {
             "Authorization": f"Bearer {self.token}"
@@ -38,6 +88,18 @@ class DeveloperAppClient:
         return response.json()
 
     def create_app(self, payload):
+        """
+        Creates a new developer app.
+
+        Args:
+            payload (dict): The payload containing app details.
+
+        Returns:
+            dict: The response from the API containing the created app details.
+
+        Raises:
+            Exception: If the API request fails.
+        """
         url = f"{self.base_url}/apps"
         headers = {
             "Content-Type": "application/json",
@@ -48,6 +110,18 @@ class DeveloperAppClient:
         return response.json()
 
     def delete_app(self, app_id):
+        """
+        Deletes a developer app by its ID.
+
+        Args:
+            app_id (str): The ID of the developer app to delete.
+
+        Returns:
+            dict: The response from the API confirming the deletion.
+
+        Raises:
+            Exception: If the API request fails.
+        """
         url = f"{self.base_url}/apps/{app_id}"
         headers = {
             "Authorization": f"Bearer {self.token}"
@@ -57,6 +131,18 @@ class DeveloperAppClient:
         return response.json()
 
     def fetch_app_details(self, app_id):
+        """
+        Fetches details of a specific developer app by its ID.
+
+        Args:
+            app_id (str): The ID of the developer app.
+
+        Returns:
+            dict: The response from the API containing app details.
+
+        Raises:
+            Exception: If the API request fails.
+        """
         url = f"{self.base_url}/apps/{app_id}"
         headers = {
             "Authorization": f"Bearer {self.token}"
@@ -66,6 +152,15 @@ class DeveloperAppClient:
         return response.json()
 
     def list_apps(self):
+        """
+        Lists all developer apps.
+
+        Returns:
+            dict: The response from the API containing a list of developer apps.
+
+        Raises:
+            Exception: If the API request fails.
+        """
         url = f"{self.base_url}/apps"
         headers = {
             "Authorization": f"Bearer {self.token}"
@@ -75,6 +170,19 @@ class DeveloperAppClient:
         return response.json()
 
     def revoke_api_key(self, app_id, api_key_id):
+        """
+        Revokes an API key for a developer app.
+
+        Args:
+            app_id (str): The ID of the developer app.
+            api_key_id (str): The ID of the API key to revoke.
+
+        Returns:
+            dict: The response from the API confirming the revocation.
+
+        Raises:
+            Exception: If the API request fails.
+        """
         url = f"{self.base_url}/apps/{app_id}/api-keys/{api_key_id}/revoke"
         headers = {
             "Authorization": f"Bearer {self.token}"
@@ -84,6 +192,19 @@ class DeveloperAppClient:
         return response.json()
 
     def update_app(self, app_id, payload):
+        """
+        Updates an existing developer app by its ID.
+
+        Args:
+            app_id (str): The ID of the developer app to update.
+            payload (dict): The payload containing updated app details.
+
+        Returns:
+            dict: The response from the API containing the updated app details.
+
+        Raises:
+            Exception: If the API request fails.
+        """
         url = f"{self.base_url}/apps/{app_id}"
         headers = {
             "Content-Type": "application/json",

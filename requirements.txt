@@ -1,0 +1,17 @@
+-e git+https://github.com/CTAgile/apigee-client.git@21746b4c6d0ba31e49af316cde26c4b55bb5e303#egg=apigee_client
+build==1.2.2.post1
+certifi==2025.4.26
+charset-normalizer==3.4.2
+click==8.1.8
+coverage==7.8.0
+idna==3.10
+iniconfig==2.1.0
+packaging==25.0
+pluggy==1.5.0
+pyproject_hooks==1.2.0
+pytest==8.3.5
+pytest-cov==6.1.1
+pytest-mock==3.14.0
+requests==2.32.3
+setuptools==80.1.0
+urllib3==2.4.0

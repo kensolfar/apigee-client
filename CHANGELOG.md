@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.1.0-alpha.2 (2025-05-05)
+
+### Bug Fixes
+
+- Update pyproject.toml with new version after release
+  ([`c523892`](https://github.com/kensolfar/apigee-client/commit/c5238925555b1752f6b1cb510805b66e837f2e3e))
+
+
 ## v0.1.0-alpha.1 (2025-05-05)
 
 ### Bug Fixes

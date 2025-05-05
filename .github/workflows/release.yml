@@ -20,9 +20,18 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install bump2version commitizen
+          pip install bump2version commitizen build twine
 
       - name: Bump version and create tag
         run: |
           cz bump --yes
           git push --follow-tags
+
+      - name: Build package
+        run: python -m build
+
+      - name: Publish to Test PyPI
+        env:
+          TWINE_API_TOKEN: ${{ secrets.TEST_PYPI_API_TOKEN }}
+        run: |
+            twine upload --repository-url ${{ env.TEST_PYPI_REPOSITORY_URL }} dist/*

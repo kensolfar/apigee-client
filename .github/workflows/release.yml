@@ -178,6 +178,10 @@ jobs:
         git_committer_name: "github-actions"
         git_committer_email: "actions@users.noreply.github.com"
 
+    - name: Update pyproject.toml with new version
+      if: steps.release.outputs.released == 'true'
+      run: NEW_VERSION=${{ steps.release.outputs.version }} && sed -i "s/^version = .*/version = \"${NEW_VERSION}\"/" pyproject.toml
+
     - name: Publish | Upload to GitHub Release Assets
       uses: python-semantic-release/publish-action@v9.21.1
       if: steps.release.outputs.released == 'true'

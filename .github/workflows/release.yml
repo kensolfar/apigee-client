@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
 
     environment:
-      name: testpypi
+      name: test-pypi
       url: https://test.pypi.org/p/apigee-client
 
     permissions:
@@ -65,7 +65,7 @@ jobs:
     - build
     runs-on: ubuntu-latest
     environment:
-      name: pypi
+      name: pypi production
       url: https://pypi.org/p/apigee-client
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing

@@ -465,6 +465,13 @@ response = client.delete_cache(cache_id="example-cache-id")
 print(response)
 ```
 
+## Release Process
+
+This project uses `semantic-release` for automated versioning and publishing. To release a new version:
+
+1. Ensure your changes are committed and pushed to the `main` branch.
+2. The GitHub Actions workflow will automatically handle versioning and publishing to PyPI.
+
 ### Unit Tests
 
 The functionality of the `KVMClient`, `ProductsClient`, `SharedFlowsClient`, `DevelopersClient`, `UsersClient`, `UserRolesClient`, `KeystoresClient`, and `CachesClient` is covered by unit tests in their respective test files. To run the tests, use the following commands:

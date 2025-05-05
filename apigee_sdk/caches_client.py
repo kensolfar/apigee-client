@@ -1,3 +1,4 @@
+from typing import Dict, Any
 import requests
 
 class CachesClient:
@@ -12,7 +13,7 @@ class CachesClient:
         headers (dict): The headers used for API requests, including the authorization token.
     """
 
-    def __init__(self, base_url, token):
+    def __init__(self, base_url: str, token: str) -> None:
         """
         Initializes the CachesClient with the base URL and authorization token.
 
@@ -23,7 +24,7 @@ class CachesClient:
         self.base_url = base_url
         self.headers = {"Authorization": f"Bearer {token}"}
 
-    def create_cache(self, payload):
+    def create_cache(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
         Creates a new cache in the Apigee environment.
 
@@ -44,7 +45,7 @@ class CachesClient:
         response.raise_for_status()
         return response.json()
 
-    def delete_cache(self, cache_id):
+    def delete_cache(self, cache_id: str) -> Dict[str, Any]:
         """
         Deletes a cache by its ID.
 
@@ -64,7 +65,7 @@ class CachesClient:
         response.raise_for_status()
         return response.json()
 
-    def fetch_cache_details(self, cache_id):
+    def fetch_cache_details(self, cache_id: str) -> Dict[str, Any]:
         """
         Fetches details of a specific cache by its ID.
 
@@ -84,7 +85,7 @@ class CachesClient:
         response.raise_for_status()
         return response.json()
 
-    def list_caches(self):
+    def list_caches(self) -> Dict[str, Any]:
         """
         Lists all caches in the Apigee environment.
 
@@ -101,7 +102,7 @@ class CachesClient:
         response.raise_for_status()
         return response.json()
 
-    def update_cache(self, cache_id, payload):
+    def update_cache(self, cache_id: str, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
         Updates an existing cache by its ID.
 

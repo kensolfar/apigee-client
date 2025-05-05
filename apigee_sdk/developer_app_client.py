@@ -1,3 +1,4 @@
+from typing import Dict, Any
 import requests
 
 class DeveloperAppClient:
@@ -11,7 +12,7 @@ class DeveloperAppClient:
         token (str): The authorization token for accessing the API.
     """
 
-    def __init__(self, base_url, token):
+    def __init__(self, base_url: str, token: str) -> None:
         """
         Initializes the DeveloperAppClient with the base URL and authorization token.
 
@@ -22,7 +23,7 @@ class DeveloperAppClient:
         self.base_url = base_url
         self.token = token
 
-    def _handle_request_errors(self, response):
+    def _handle_request_errors(self, response: requests.Response) -> None:
         """
         Handles common HTTP request errors.
 
@@ -42,7 +43,7 @@ class DeveloperAppClient:
         except Exception as err:
             raise Exception(f"Failed to process the request: {err}")
 
-    def add_api_key(self, app_id, payload):
+    def add_api_key(self, app_id: str, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
         Adds an API key to a developer app.
 
@@ -65,7 +66,7 @@ class DeveloperAppClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def approve_api_key(self, app_id, api_key_id):
+    def approve_api_key(self, app_id: str, api_key_id: str) -> Dict[str, Any]:
         """
         Approves an API key for a developer app.
 
@@ -87,7 +88,7 @@ class DeveloperAppClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def create_app(self, payload):
+    def create_app(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
         Creates a new developer app.
 
@@ -109,7 +110,7 @@ class DeveloperAppClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def delete_app(self, app_id):
+    def delete_app(self, app_id: str) -> Dict[str, Any]:
         """
         Deletes a developer app by its ID.
 
@@ -130,7 +131,7 @@ class DeveloperAppClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def fetch_app_details(self, app_id):
+    def fetch_app_details(self, app_id: str) -> Dict[str, Any]:
         """
         Fetches details of a specific developer app by its ID.
 
@@ -151,7 +152,7 @@ class DeveloperAppClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def list_apps(self):
+    def list_apps(self) -> Dict[str, Any]:
         """
         Lists all developer apps.
 
@@ -169,7 +170,7 @@ class DeveloperAppClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def revoke_api_key(self, app_id, api_key_id):
+    def revoke_api_key(self, app_id: str, api_key_id: str) -> Dict[str, Any]:
         """
         Revokes an API key for a developer app.
 
@@ -191,7 +192,7 @@ class DeveloperAppClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def update_app(self, app_id, payload):
+    def update_app(self, app_id: str, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
         Updates an existing developer app by its ID.
 

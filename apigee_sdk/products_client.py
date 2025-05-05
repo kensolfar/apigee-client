@@ -1,3 +1,4 @@
+from typing import Dict, Any
 import requests
 
 class ProductsClient:
@@ -11,7 +12,7 @@ class ProductsClient:
         headers (dict): The headers used for API requests, including the authorization token.
     """
 
-    def __init__(self, base_url, token):
+    def __init__(self, base_url: str, token: str) -> None:
         """
         Initializes the ProductsClient with the base URL and authorization token.
 
@@ -22,7 +23,7 @@ class ProductsClient:
         self.base_url = base_url
         self.headers = {"Authorization": f"Bearer {token}"}
 
-    def create_product(self, payload):
+    def create_product(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
         Creates a new API product in the Apigee environment.
 
@@ -39,7 +40,7 @@ class ProductsClient:
         response.raise_for_status()
         return response.json()
 
-    def delete_product(self, product_id):
+    def delete_product(self, product_id: str) -> Dict[str, Any]:
         """
         Deletes an API product by its ID.
 
@@ -56,7 +57,7 @@ class ProductsClient:
         response.raise_for_status()
         return response.json()
 
-    def fetch_product_details(self, product_id):
+    def fetch_product_details(self, product_id: str) -> Dict[str, Any]:
         """
         Fetches details of a specific API product by its ID.
 
@@ -73,7 +74,7 @@ class ProductsClient:
         response.raise_for_status()
         return response.json()
 
-    def list_products(self):
+    def list_products(self) -> Dict[str, Any]:
         """
         Lists all API products in the Apigee environment.
 
@@ -87,7 +88,7 @@ class ProductsClient:
         response.raise_for_status()
         return response.json()
 
-    def update_product(self, product_id, payload):
+    def update_product(self, product_id: str, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
         Updates an existing API product by its ID.
 

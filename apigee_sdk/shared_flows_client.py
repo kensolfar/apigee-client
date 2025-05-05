@@ -1,3 +1,4 @@
+from typing import Dict, Any
 import requests
 
 class SharedFlowsClient:
@@ -11,7 +12,7 @@ class SharedFlowsClient:
         headers (dict): The headers used for API requests, including the authorization token.
     """
 
-    def __init__(self, base_url, token):
+    def __init__(self, base_url: str, token: str) -> None:
         """
         Initializes the SharedFlowsClient with the base URL and authorization token.
 
@@ -22,7 +23,7 @@ class SharedFlowsClient:
         self.base_url = base_url
         self.headers = {"Authorization": f"Bearer {token}"}
 
-    def create_shared_flow(self, payload):
+    def create_shared_flow(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
         Creates a new shared flow in the Apigee environment.
 
@@ -39,7 +40,7 @@ class SharedFlowsClient:
         response.raise_for_status()
         return response.json()
 
-    def delete_shared_flow(self, shared_flow_id):
+    def delete_shared_flow(self, shared_flow_id: str) -> Dict[str, Any]:
         """
         Deletes a shared flow by its ID.
 
@@ -56,7 +57,7 @@ class SharedFlowsClient:
         response.raise_for_status()
         return response.json()
 
-    def fetch_shared_flow_details(self, shared_flow_id):
+    def fetch_shared_flow_details(self, shared_flow_id: str) -> Dict[str, Any]:
         """
         Fetches details of a specific shared flow by its ID.
 
@@ -73,7 +74,7 @@ class SharedFlowsClient:
         response.raise_for_status()
         return response.json()
 
-    def list_shared_flows(self):
+    def list_shared_flows(self) -> Dict[str, Any]:
         """
         Lists all shared flows in the Apigee environment.
 
@@ -87,7 +88,7 @@ class SharedFlowsClient:
         response.raise_for_status()
         return response.json()
 
-    def update_shared_flow(self, shared_flow_id, payload):
+    def update_shared_flow(self, shared_flow_id: str, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
         Updates an existing shared flow by its ID.
 

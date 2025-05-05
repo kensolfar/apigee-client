@@ -1,3 +1,4 @@
+from typing import Dict, Any
 import requests
 
 class KeystoresClient:
@@ -11,7 +12,7 @@ class KeystoresClient:
         headers (dict): The headers used for API requests, including the authorization token.
     """
 
-    def __init__(self, base_url, token):
+    def __init__(self, base_url: str, token: str) -> None:
         """
         Initializes the KeystoresClient with the base URL and authorization token.
 
@@ -22,7 +23,7 @@ class KeystoresClient:
         self.base_url = base_url
         self.headers = {"Authorization": f"Bearer {token}"}
 
-    def create_keystore(self, payload):
+    def create_keystore(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
         Creates a new keystore in the Apigee environment.
 
@@ -39,7 +40,7 @@ class KeystoresClient:
         response.raise_for_status()
         return response.json()
 
-    def delete_keystore(self, keystore_id):
+    def delete_keystore(self, keystore_id: str) -> Dict[str, Any]:
         """
         Deletes a keystore by its ID.
 
@@ -56,7 +57,7 @@ class KeystoresClient:
         response.raise_for_status()
         return response.json()
 
-    def fetch_keystore_details(self, keystore_id):
+    def fetch_keystore_details(self, keystore_id: str) -> Dict[str, Any]:
         """
         Fetches details of a specific keystore by its ID.
 
@@ -73,7 +74,7 @@ class KeystoresClient:
         response.raise_for_status()
         return response.json()
 
-    def list_keystores(self):
+    def list_keystores(self) -> Dict[str, Any]:
         """
         Lists all keystores in the Apigee environment.
 
@@ -87,7 +88,7 @@ class KeystoresClient:
         response.raise_for_status()
         return response.json()
 
-    def update_keystore(self, keystore_id, payload):
+    def update_keystore(self, keystore_id: str, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
         Updates an existing keystore by its ID.
 

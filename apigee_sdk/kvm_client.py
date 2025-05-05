@@ -1,3 +1,4 @@
+from typing import Dict, Any
 import requests
 
 class KVMClient:
@@ -11,7 +12,7 @@ class KVMClient:
         headers (dict): The headers used for API requests, including the authorization token.
     """
 
-    def __init__(self, base_url, token):
+    def __init__(self, base_url: str, token: str) -> None:
         """
         Initializes the KVMClient with the base URL and authorization token.
 
@@ -22,7 +23,7 @@ class KVMClient:
         self.base_url = base_url
         self.headers = {"Authorization": f"Bearer {token}"}
 
-    def create_kvm(self, payload):
+    def create_kvm(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
         Creates a new Key-Value Map (KVM) in the Apigee environment.
 
@@ -39,7 +40,7 @@ class KVMClient:
         response.raise_for_status()
         return response.json()
 
-    def delete_kvm(self, kvm_id):
+    def delete_kvm(self, kvm_id: str) -> Dict[str, Any]:
         """
         Deletes a Key-Value Map (KVM) by its ID.
 
@@ -56,7 +57,7 @@ class KVMClient:
         response.raise_for_status()
         return response.json()
 
-    def fetch_kvm_details(self, kvm_id):
+    def fetch_kvm_details(self, kvm_id: str) -> Dict[str, Any]:
         """
         Fetches details of a specific Key-Value Map (KVM) by its ID.
 
@@ -73,7 +74,7 @@ class KVMClient:
         response.raise_for_status()
         return response.json()
 
-    def list_kvms(self):
+    def list_kvms(self) -> Dict[str, Any]:
         """
         Lists all Key-Value Maps (KVMs) in the Apigee environment.
 
@@ -87,7 +88,7 @@ class KVMClient:
         response.raise_for_status()
         return response.json()
 
-    def update_kvm(self, kvm_id, payload):
+    def update_kvm(self, kvm_id: str, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
         Updates an existing Key-Value Map (KVM) by its ID.
 

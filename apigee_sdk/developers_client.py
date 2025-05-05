@@ -1,3 +1,4 @@
+from typing import Dict, Any
 import requests
 
 class DevelopersClient:
@@ -11,7 +12,7 @@ class DevelopersClient:
         headers (dict): The headers used for API requests, including the authorization token.
     """
 
-    def __init__(self, base_url, token):
+    def __init__(self, base_url: str, token: str) -> None:
         """
         Initializes the DevelopersClient with the base URL and authorization token.
 
@@ -22,7 +23,7 @@ class DevelopersClient:
         self.base_url = base_url
         self.headers = {"Authorization": f"Bearer {token}"}
 
-    def create_developer(self, payload):
+    def create_developer(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
         Creates a new developer in the Apigee environment.
 
@@ -39,7 +40,7 @@ class DevelopersClient:
         response.raise_for_status()
         return response.json()
 
-    def delete_developer(self, developer_id):
+    def delete_developer(self, developer_id: str) -> Dict[str, Any]:
         """
         Deletes a developer by their ID.
 
@@ -56,7 +57,7 @@ class DevelopersClient:
         response.raise_for_status()
         return response.json()
 
-    def fetch_developer_details(self, developer_id):
+    def fetch_developer_details(self, developer_id: str) -> Dict[str, Any]:
         """
         Fetches details of a specific developer by their ID.
 
@@ -73,7 +74,7 @@ class DevelopersClient:
         response.raise_for_status()
         return response.json()
 
-    def list_developers(self):
+    def list_developers(self) -> Dict[str, Any]:
         """
         Lists all developers in the Apigee environment.
 
@@ -87,7 +88,7 @@ class DevelopersClient:
         response.raise_for_status()
         return response.json()
 
-    def update_developer(self, developer_id, payload):
+    def update_developer(self, developer_id: str, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
         Updates an existing developer by their ID.
 

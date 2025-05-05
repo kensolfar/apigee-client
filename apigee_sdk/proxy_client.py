@@ -1,3 +1,4 @@
+from typing import Dict, Any
 import requests
 
 class ProxyClient:
@@ -12,7 +13,7 @@ class ProxyClient:
         token (str): The authorization token for accessing the API.
     """
 
-    def __init__(self, base_url, token):
+    def __init__(self, base_url: str, token: str) -> None:
         """
         Initializes the ProxyClient with the base URL and authorization token.
 
@@ -23,7 +24,7 @@ class ProxyClient:
         self.base_url = base_url
         self.token = token
 
-    def _handle_request_errors(self, response):
+    def _handle_request_errors(self, response: requests.Response) -> None:
         """
         Handles common HTTP request errors.
 
@@ -43,17 +44,17 @@ class ProxyClient:
         except Exception as err:
             raise Exception(f"Failed to process the request: {err}")
 
-    def create_api_proxy(self, org, payload, bearer):
+    def create_api_proxy(self, org: str, payload: Dict[str, Any], bearer: str) -> Dict[str, Any]:
         """
         Creates a new API Proxy.
 
         Args:
             org (str): The organization name.
-            payload (dict): The payload containing API proxy details.
+            payload (Dict[str, Any]): The payload containing API proxy details.
             bearer (str): The bearer token for authorization.
 
         Returns:
-            dict: The response from the API containing details of the created proxy.
+            Dict[str, Any]: The response from the API containing details of the created proxy.
 
         Raises:
             HTTPError: If the API request fails due to an HTTP error.
@@ -67,18 +68,18 @@ class ProxyClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def upload_proxy_revision(self, org, api, payload, bearer):
+    def upload_proxy_revision(self, org: str, api: str, payload: Dict[str, Any], bearer: str) -> Dict[str, Any]:
         """
         Uploads a new revision of the API Proxy.
 
         Args:
             org (str): The organization name.
             api (str): The API proxy name.
-            payload (dict): The payload containing revision details.
+            payload (Dict[str, Any]): The payload containing revision details.
             bearer (str): The bearer token for authorization.
 
         Returns:
-            dict: The response from the API containing details of the uploaded revision.
+            Dict[str, Any]: The response from the API containing details of the uploaded revision.
 
         Raises:
             Exception: If the API request fails.
@@ -92,7 +93,7 @@ class ProxyClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def list_proxy_revisions(self, org, api, bearer):
+    def list_proxy_revisions(self, org: str, api: str, bearer: str) -> Dict[str, Any]:
         """
         Lists all available revisions for an API Proxy.
 
@@ -102,7 +103,7 @@ class ProxyClient:
             bearer (str): The bearer token for authorization.
 
         Returns:
-            dict: The response from the API containing a list of revisions.
+            Dict[str, Any]: The response from the API containing a list of revisions.
 
         Raises:
             Exception: If the API request fails.
@@ -115,7 +116,7 @@ class ProxyClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def deploy_proxy_revision(self, org, env, api, revision, bearer):
+    def deploy_proxy_revision(self, org: str, env: str, api: str, revision: str, bearer: str) -> Dict[str, Any]:
         """
         Deploys a specific revision of the API Proxy to an environment.
 
@@ -127,7 +128,7 @@ class ProxyClient:
             bearer (str): The bearer token for authorization.
 
         Returns:
-            dict: The response from the API confirming the deployment.
+            Dict[str, Any]: The response from the API confirming the deployment.
 
         Raises:
             Exception: If the API request fails.
@@ -140,7 +141,7 @@ class ProxyClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def get_deployment_status(self, org, env, api, bearer):
+    def get_deployment_status(self, org: str, env: str, api: str, bearer: str) -> Dict[str, Any]:
         """
         Checks the deployment status of the API Proxy in an environment.
 
@@ -151,7 +152,7 @@ class ProxyClient:
             bearer (str): The bearer token for authorization.
 
         Returns:
-            dict: The response from the API containing deployment status.
+            Dict[str, Any]: The response from the API containing deployment status.
 
         Raises:
             Exception: If the API request fails.
@@ -164,7 +165,7 @@ class ProxyClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def delete_deployment(self, org, env, api, revision, bearer):
+    def delete_deployment(self, org: str, env: str, api: str, revision: str, bearer: str) -> Dict[str, Any]:
         """
         Deletes the deployment of a specific revision of the API Proxy.
 
@@ -176,7 +177,7 @@ class ProxyClient:
             bearer (str): The bearer token for authorization.
 
         Returns:
-            dict: The response from the API confirming the deletion.
+            Dict[str, Any]: The response from the API confirming the deletion.
 
         Raises:
             Exception: If the API request fails.
@@ -189,7 +190,7 @@ class ProxyClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def update_proxy_policies(self, org, api, revision, payload, bearer):
+    def update_proxy_policies(self, org: str, api: str, revision: str, payload: Dict[str, Any], bearer: str) -> Dict[str, Any]:
         """
         Updates the policies of the API Proxy.
 
@@ -197,11 +198,11 @@ class ProxyClient:
             org (str): The organization name.
             api (str): The API proxy name.
             revision (str): The revision number.
-            payload (dict): The payload containing updated policy details.
+            payload (Dict[str, Any]): The payload containing updated policy details.
             bearer (str): The bearer token for authorization.
 
         Returns:
-            dict: The response from the API confirming the update.
+            Dict[str, Any]: The response from the API confirming the update.
 
         Raises:
             Exception: If the API request fails.
@@ -215,7 +216,7 @@ class ProxyClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def get_proxy_revision_details(self, org, api, revision, bearer):
+    def get_proxy_revision_details(self, org: str, api: str, revision: str, bearer: str) -> Dict[str, Any]:
         """
         Gets the details of a specific revision of the API Proxy.
 
@@ -226,7 +227,7 @@ class ProxyClient:
             bearer (str): The bearer token for authorization.
 
         Returns:
-            dict: The response from the API containing revision details.
+            Dict[str, Any]: The response from the API containing revision details.
 
         Raises:
             Exception: If the API request fails.
@@ -239,7 +240,7 @@ class ProxyClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def list_apis(self, org, bearer):
+    def list_apis(self, org: str, bearer: str) -> Dict[str, Any]:
         """
         Lists all API Proxies in the organization.
 
@@ -248,7 +249,7 @@ class ProxyClient:
             bearer (str): The bearer token for authorization.
 
         Returns:
-            dict: The response from the API containing a list of API proxies.
+            Dict[str, Any]: The response from the API containing a list of API proxies.
 
         Raises:
             Exception: If the API request fails.
@@ -261,7 +262,7 @@ class ProxyClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def delete_api(self, org, api, bearer):
+    def delete_api(self, org: str, api: str, bearer: str) -> Dict[str, Any]:
         """
         Deletes an API Proxy from the organization.
 
@@ -271,7 +272,7 @@ class ProxyClient:
             bearer (str): The bearer token for authorization.
 
         Returns:
-            dict: The response from the API confirming the deletion.
+            Dict[str, Any]: The response from the API confirming the deletion.
 
         Raises:
             Exception: If the API request fails.
@@ -284,7 +285,7 @@ class ProxyClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def start_debug_session(self, org, env, api, revision, bearer):
+    def start_debug_session(self, org: str, env: str, api: str, revision: str, bearer: str) -> Dict[str, Any]:
         """
         Starts a debug session for a deployed API Proxy.
 
@@ -296,7 +297,7 @@ class ProxyClient:
             bearer (str): The bearer token for authorization.
 
         Returns:
-            dict: The response from the API containing debug session details.
+            Dict[str, Any]: The response from the API containing debug session details.
 
         Raises:
             Exception: If the API request fails.
@@ -309,7 +310,7 @@ class ProxyClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def get_api_metrics(self, org, env, bearer):
+    def get_api_metrics(self, org: str, env: str, bearer: str) -> Dict[str, Any]:
         """
         Gets usage and performance metrics for the API Proxy.
 
@@ -319,7 +320,7 @@ class ProxyClient:
             bearer (str): The bearer token for authorization.
 
         Returns:
-            dict: The response from the API containing metrics.
+            Dict[str, Any]: The response from the API containing metrics.
 
         Raises:
             Exception: If the API request fails.
@@ -332,17 +333,17 @@ class ProxyClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def create_api_product(self, org, payload, bearer):
+    def create_api_product(self, org: str, payload: Dict[str, Any], bearer: str) -> Dict[str, Any]:
         """
         Creates an API product associated with the API Proxy.
 
         Args:
             org (str): The organization name.
-            payload (dict): The payload containing API product details.
+            payload (Dict[str, Any]): The payload containing API product details.
             bearer (str): The bearer token for authorization.
 
         Returns:
-            dict: The response from the API containing details of the created product.
+            Dict[str, Any]: The response from the API containing details of the created product.
 
         Raises:
             Exception: If the API request fails.
@@ -356,18 +357,18 @@ class ProxyClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def update_api_product(self, org, product, payload, bearer):
+    def update_api_product(self, org: str, product: str, payload: Dict[str, Any], bearer: str) -> Dict[str, Any]:
         """
         Updates an API product to associate it with an API Proxy.
 
         Args:
             org (str): The organization name.
             product (str): The API product name.
-            payload (dict): The payload containing updated product details.
+            payload (Dict[str, Any]): The payload containing updated product details.
             bearer (str): The bearer token for authorization.
 
         Returns:
-            dict: The response from the API confirming the update.
+            Dict[str, Any]: The response from the API confirming the update.
 
         Raises:
             Exception: If the API request fails.
@@ -381,7 +382,7 @@ class ProxyClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def promote_revision_to_production(self, org, api, revision, bearer):
+    def promote_revision_to_production(self, org: str, api: str, revision: str, bearer: str) -> Dict[str, Any]:
         """
         Promotes a revision of the API Proxy to the production environment.
 
@@ -392,7 +393,7 @@ class ProxyClient:
             bearer (str): The bearer token for authorization.
 
         Returns:
-            dict: The response from the API confirming the promotion.
+            Dict[str, Any]: The response from the API confirming the promotion.
 
         Raises:
             Exception: If the API request fails.
@@ -405,7 +406,7 @@ class ProxyClient:
         self._handle_request_errors(response)
         return response.json()
 
-    def delete_proxy_revision(self, org, api, revision, bearer):
+    def delete_proxy_revision(self, org: str, api: str, revision: str, bearer: str) -> Dict[str, Any]:
         """
         Deletes a specific revision of the API Proxy.
 
@@ -416,7 +417,7 @@ class ProxyClient:
             bearer (str): The bearer token for authorization.
 
         Returns:
-            dict: The response from the API confirming the deletion.
+            Dict[str, Any]: The response from the API confirming the deletion.
 
         Raises:
             Exception: If the API request fails.

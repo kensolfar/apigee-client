@@ -56,7 +56,7 @@ class ProxyClient:
             dict: The response from the API containing details of the created proxy.
 
         Raises:
-            Exception: If the API request fails.
+            HTTPError: If the API request fails due to an HTTP error.
         """
         url = f"{self.base_url}/v1/organizations/{org}/apis"
         headers = {

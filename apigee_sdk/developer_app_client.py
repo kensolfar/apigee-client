@@ -77,7 +77,7 @@ class DeveloperAppClient:
             dict: The response from the API confirming the approval.
 
         Raises:
-            Exception: If the API request fails.
+            requests.exceptions.HTTPError: If the API request fails.
         """
         url = f"{self.base_url}/apps/{app_id}/api-keys/{api_key_id}/approve"
         headers = {

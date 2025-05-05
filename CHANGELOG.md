@@ -1,6 +1,20 @@
 # CHANGELOG
 
 
+## v0.1.0-alpha.3 (2025-05-05)
+
+### Bug Fixes
+
+- Enable persist-credentials in release workflow for better authentication
+  ([`5947ff4`](https://github.com/kensolfar/apigee-client/commit/5947ff43f9dd0053588e65d3a0b6973a73dde9a0))
+
+- Ensure full commit history is fetched in release workflow
+  ([`98e0c33`](https://github.com/kensolfar/apigee-client/commit/98e0c337afd1cb14ff438a4a82696413beed4679))
+
+- Refactor release workflow to streamline semantic versioning and remove GitHub release step
+  ([`eaf8fe5`](https://github.com/kensolfar/apigee-client/commit/eaf8fe52572260d5ebc2a5bb53c49c58d799b947))
+
+
 ## v0.1.0-alpha.2 (2025-05-05)
 
 ### Bug Fixes

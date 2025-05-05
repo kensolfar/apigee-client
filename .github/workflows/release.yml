@@ -6,8 +6,28 @@ on:
       - develop
 
 jobs:
+  semantic-release:
+    name: Semantic Release
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - name: Action | Semantic Version Release
+      id: release
+      uses: python-semantic-release/python-semantic-release@v9.21.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        git_committer_name: "github-actions"
+        git_committer_email: "actions@users.noreply.github.com"
+    - name: Update pyproject.toml with new version
+      if: steps.release.outputs.released == 'true'
+      run: NEW_VERSION=${{ steps.release.outputs.version }} && sed -i "s/^version = .*/version = \"${NEW_VERSION}\"/" pyproject.toml
+
   build:
     name: Build distribution 📦
+    needs:
+    - semantic-release
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -55,7 +75,7 @@ jobs:
   publish-to-testpypi:
     name: Publish Python 🐍 distribution 📦 to TestPyPI
     needs:
-    - github-release
+    - build
     runs-on: ubuntu-latest
 
     environment:
@@ -85,7 +105,7 @@ jobs:
       Publish Python 🐍 distribution 📦 to PyPI
     if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushes
     needs:
-      - github-release
+      - build
     runs-on: ubuntu-latest
     environment:
       name: pypi production
@@ -100,91 +120,3 @@ jobs:
           path: dist/
       - name: Publish distribution 📦 to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-
-  github-release:
-    name: >-
-      Sign the Python 🐍 distribution 📦 with Sigstore
-      and upload them to GitHub Release
-    needs:
-      - build
-      - test
-    runs-on: ubuntu-latest
-
-    permissions:
-      contents: write  # IMPORTANT: mandatory for making GitHub Releases
-      id-token: write  # IMPORTANT: mandatory for sigstore
-
-    steps:
-    - name: Setup | Checkout Repository on Release Branch
-      uses: actions/checkout@v4
-      with:
-        ref: ${{ github.ref_name }}
-        fetch-depth: 0
-
-    - name: Setup | Force release branch to be at workflow sha
-      run: |
-        git reset --hard ${{ github.sha }}
-
-    - name: Evaluate | Verify upstream has NOT changed
-      shell: bash
-      run: |
-        set +o pipefail
-
-        UPSTREAM_BRANCH_NAME="$(git status -sb | head -n 1 | cut -d' ' -f2 | grep -E '\.{3}' | cut -d'.' -f4)"
-        printf '%s\n' "Upstream branch name: $UPSTREAM_BRANCH_NAME"
-
-        set -o pipefail
-
-        if [ -z "$UPSTREAM_BRANCH_NAME" ]; then
-            printf >&2 '%s\n' "::error::Unable to determine upstream branch name!"
-            exit 1
-        fi
-
-        git fetch "${UPSTREAM_BRANCH_NAME%%/*}"
-
-        if ! UPSTREAM_SHA="$(git rev-parse "$UPSTREAM_BRANCH_NAME")"; then
-            printf >&2 '%s\n' "::error::Unable to determine upstream branch sha!"
-            exit 1
-        fi
-
-        HEAD_SHA="$(git rev-parse HEAD)"
-
-        if [ "$HEAD_SHA" != "$UPSTREAM_SHA" ]; then
-            printf >&2 '%s\n' "[HEAD SHA] $HEAD_SHA != $UPSTREAM_SHA [UPSTREAM SHA]"
-            printf >&2 '%s\n' "::error::Upstream has changed, aborting release..."
-            exit 1
-        fi
-
-        printf '%s\n' "Verified upstream branch has not changed, continuing with release..."
-
-    - name: Download all the dists
-      uses: actions/download-artifact@v4
-      with:
-        name: python-package-distributions
-        path: dist/
-
-    - name: Sign the dists with Sigstore
-      uses: sigstore/gh-action-sigstore-python@v3.0.0
-      with:
-        inputs: >-
-          ./dist/*.tar.gz
-          ./dist/*.whl
-
-    - name: Action | Semantic Version Release
-      id: release
-      uses: python-semantic-release/python-semantic-release@v9.21.1
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        git_committer_name: "github-actions"
-        git_committer_email: "actions@users.noreply.github.com"
-
-    - name: Update pyproject.toml with new version
-      if: steps.release.outputs.released == 'true'
-      run: NEW_VERSION=${{ steps.release.outputs.version }} && sed -i "s/^version = .*/version = \"${NEW_VERSION}\"/" pyproject.toml
-
-    - name: Publish | Upload to GitHub Release Assets
-      uses: python-semantic-release/publish-action@v9.21.1
-      if: steps.release.outputs.released == 'true'
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        tag: ${{ steps.release.outputs.tag }}

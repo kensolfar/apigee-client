@@ -467,8 +467,18 @@ print(response)
 
 ## Release Process
 
-This project uses `semantic-release` for automated versioning and publishing. To release a new version:
+This project uses `semantic-release` for automated versioning and publishing. The release process is configured as follows:
 
+- **Version Bump Rules**: `semantic-release` analyzes commit messages to determine the type of version bump (major, minor, or patch) based on the [Conventional Commits](https://www.conventionalcommits.org/) specification. For example:
+  - A commit message starting with `feat:` triggers a minor version bump.
+  - A commit message starting with `fix:` triggers a patch version bump.
+  - A commit message containing `BREAKING CHANGE` triggers a major version bump.
+
+- **Branch Restrictions**: Releases are triggered only from the `main` branch. Ensure your changes are committed and pushed to this branch.
+
+- **Configuration**: The release process is defined in the `.releaserc` file located in the project root. You can modify this file to customize the behavior of `semantic-release`.
+
+To release a new version:
 1. Ensure your changes are committed and pushed to the `main` branch.
 2. The GitHub Actions workflow will automatically handle versioning and publishing to PyPI.
 

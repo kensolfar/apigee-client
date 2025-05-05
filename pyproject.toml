@@ -42,6 +42,9 @@ Issues = "https://github.com/kensolfar/apigee_client/issues"
 [project.scripts]
 apigee-client = "cli.proxy_cli:cli"
 
+[tool.setuptools]
+packages = ["apigee_sdk"]
+
 [tool.semantic_release.pypi]
 repository_url = "https://upload.pypi.org/legacy/"
 

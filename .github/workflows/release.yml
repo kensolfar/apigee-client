@@ -20,18 +20,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install bump2version commitizen build twine
+          pip install semantic-release[github]
 
-      - name: Bump version and create tag
-        run: |
-          cz bump --yes
-          git push --follow-tags
-
-      - name: Build package
-        run: python -m build
-
-      - name: Publish to Test PyPI
+      - name: Run semantic-release
         env:
-          TWINE_API_TOKEN: ${{ secrets.TEST_PYPI_API_TOKEN }}
-        run: |
-            twine upload --repository-url ${{ env.TEST_PYPI_REPOSITORY_URL }} dist/*
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PYPI_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+        run: semantic-release publish

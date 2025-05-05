@@ -21,3 +21,18 @@ license-files = ["LICEN[CS]E*"]
 [project.urls]
 Homepage = "https://github.com/kensolfar/apigee_client"
 Issues = "https://github.com/kensolfar/apigee_client/issues"
+
+[tool.semantic_release]
+repository_url = "https://test.pypi.org/legacy/"
+
+[tool.semantic_release.branches.main]
+match = "(main|master)"
+prerelease = false
+
+[tool.semantic_release.branches.develop]
+match = "(develop|Develop)"
+prerelease = true
+prerelease_token = "alpha"
+
+[tool.semantic_release.remote.token]
+env = "GH_TOKEN"

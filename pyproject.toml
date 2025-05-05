@@ -4,15 +4,32 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "apigee-client"
-version = "0.0.1"
+description = "A Python SDK and CLI for interacting with the Apigee Edge Management API."
 authors = [
   { name="Ken Solorzano-Farrier", email="kener.solorzano@icloud.com" },
 ]
-description = "A Python client library for interacting with the Apigee Edge API, designed to simplify API management and integration tasks."
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.7"
+dependencies = [
+    "certifi==2025.4.26",
+    "charset-normalizer==3.4.2",
+    "click==8.1.8",
+    "coverage==7.8.0",
+    "idna==3.10",
+    "iniconfig==2.1.0",
+    "packaging==25.0",
+    "pluggy==1.5.0",
+    "pytest==8.3.5",
+    "pytest-cov==6.1.1",
+    "pytest-mock==3.14.0",
+    "requests==2.32.3",
+    "importlib-metadata; python_version<\"3.10\"",
+    "setuptools==80.1.0",
+    "urllib3==2.4.0",
+]
 classifiers = [
     "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Operating System :: OS Independent",
 ]
 license = "GNU"
@@ -22,8 +39,11 @@ license-files = ["LICEN[CS]E*"]
 Homepage = "https://github.com/kensolfar/apigee_client"
 Issues = "https://github.com/kensolfar/apigee_client/issues"
 
-[tool.semantic_release]
-repository_url = "https://test.pypi.org/legacy/"
+[project.scripts]
+apigee-client = "cli.proxy_cli:cli"
+
+[tool.semantic_release.pypi]
+repository_url = "https://upload.pypi.org/legacy/"
 
 [tool.semantic_release.branches.main]
 match = "(main|master)"

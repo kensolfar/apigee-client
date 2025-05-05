@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "apigee-client"
 description = "A Python SDK and CLI for interacting with the Apigee Edge Management API."
-version = "0.2.0-alpha1"
+version = "0.2.0-beta.1"
 authors = [
   { name="Ken Solorzano-Farrier", email="kener.solorzano@icloud.com" },
 ]

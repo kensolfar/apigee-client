@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        persist-credentials: false
+        persist-credentials: true
         fetch-depth: 0  # Ensure the full commit history is fetched
     - name: Action | Semantic Version Release
       id: release

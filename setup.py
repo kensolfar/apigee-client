@@ -1,8 +1,11 @@
 from setuptools import setup, find_packages
 
+with open("VERSION", "r") as version_file:
+    version = version_file.read().strip()
+
 setup(
     name="apigee-client",
-    version="0.0.1",
+    version=version,
     description="A Python SDK and CLI for interacting with the Apigee Edge Management API.",
     author="Ken Solorzano-Farrier",
     author_email="kener.solorzano@icloud.com",

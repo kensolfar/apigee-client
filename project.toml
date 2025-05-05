@@ -6,9 +6,9 @@ build-backend = "setuptools.build_meta"
 name = "apigee_client"
 version = "0.0.1"
 authors = [
-  { name="Example Author", email="author@example.com" },
+  { name="Ken Solorzano-Farrier", email="kener.solorzano@icloud.com" },
 ]
-description = "A small example package"
+description = "A Python client library for interacting with the Apigee Edge API, designed to simplify API management and integration tasks."
 readme = "README.md"
 requires-python = ">=3.13"
 classifiers = [

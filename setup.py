@@ -3,9 +3,9 @@ from setuptools import setup, find_packages
 setup(
     name="apigee-client",
     version="0.0.1",
-    description="A Python SDK and CLI for interacting with the Apigee Management API.",
-    author="Your Name",
-    author_email="kensol23@gmail.com",
+    description="A Python SDK and CLI for interacting with the Apigee Edge Management API.",
+    author="Ken Solorzano-Farrier",
+    author_email="kener.solorzano@icloud.com",
     packages=find_packages(),
     install_requires=[
         "certifi==2025.4.26",

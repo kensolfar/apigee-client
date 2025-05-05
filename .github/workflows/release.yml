@@ -18,12 +18,8 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Install dependencies
-        run: |
-          pip install semantic-release[github]
+      - name: Python Semantic Release
+        uses: python-semantic-release/python-semantic-release@v9.21.1
 
-      - name: Run semantic-release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PYPI_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
-        run: semantic-release publish
+      - name: Python Semantic Release - Publish
+        uses: python-semantic-release/publish-action@v9.21.1

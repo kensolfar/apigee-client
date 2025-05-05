@@ -55,8 +55,7 @@ jobs:
   publish-to-testpypi:
     name: Publish Python 🐍 distribution 📦 to TestPyPI
     needs:
-    - build
-    - test
+    - github-release
     runs-on: ubuntu-latest
 
     environment:
@@ -86,8 +85,7 @@ jobs:
       Publish Python 🐍 distribution 📦 to PyPI
     if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushes
     needs:
-    - build
-    - test
+      - github-release
     runs-on: ubuntu-latest
     environment:
       name: pypi production
@@ -108,7 +106,8 @@ jobs:
       Sign the Python 🐍 distribution 📦 with Sigstore
       and upload them to GitHub Release
     needs:
-    - publish-to-pypi
+      - build
+      - test
     runs-on: ubuntu-latest
 
     permissions:
@@ -158,6 +157,19 @@ jobs:
 
         printf '%s\n' "Verified upstream branch has not changed, continuing with release..."
 
+    - name: Download all the dists
+      uses: actions/download-artifact@v4
+      with:
+        name: python-package-distributions
+        path: dist/
+
+    - name: Sign the dists with Sigstore
+      uses: sigstore/gh-action-sigstore-python@v3.0.0
+      with:
+        inputs: >-
+          ./dist/*.tar.gz
+          ./dist/*.whl
+
     - name: Action | Semantic Version Release
       id: release
       uses: python-semantic-release/python-semantic-release@v9.21.1
@@ -172,33 +184,3 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         tag: ${{ steps.release.outputs.tag }}
-
-    - name: Download all the dists
-      uses: actions/download-artifact@v4
-      with:
-        name: python-package-distributions
-        path: dist/
-
-    - name: Sign the dists with Sigstore
-      uses: sigstore/gh-action-sigstore-python@v3.0.0
-      with:
-        inputs: >-
-          ./dist/*.tar.gz
-          ./dist/*.whl
-
-    - name: Create GitHub Release
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      run: >-
-        gh release create
-        "$GITHUB_REF_NAME"
-        --repo "$GITHUB_REPOSITORY"
-        --notes ""
-
-    - name: Upload artifact signatures to GitHub Release
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      run: >-
-        gh release upload
-        "$GITHUB_REF_NAME" dist/**
-        --repo "$GITHUB_REPOSITORY"

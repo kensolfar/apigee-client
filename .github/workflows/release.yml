@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
 
     environment:
-      name: test-pypi
+      name: pypi-test
       url: https://test.pypi.org/p/apigee-client
 
     permissions:

@@ -21,3 +21,6 @@ license-files = ["LICEN[CS]E*"]
 [project.urls]
 Homepage = "https://github.com/kensolfar/apigee_client"
 Issues = "https://github.com/kensolfar/apigee_client/issues"
+
+[tool.semantic_release]
+branch = "develop"
